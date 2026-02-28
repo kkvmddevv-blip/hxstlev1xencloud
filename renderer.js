@@ -71,15 +71,15 @@ async function refreshId() {
     } catch (e) { console.error("Ошибка получения CLIENT_ID", e); }
 }
  
-// Поиск треков
+// Поиск треков через более надежный прокси
 function performSearch() {
     if (!CLIENT_ID) { refreshId(); return; }
     const query = searchInput.value.trim();
     if (!query) return;
     trackInfo.innerText = "Поиск...";
     
-    // ВАЖНО: Добавляем прокси перед URL запроса
-    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+    // !!! ИСПОЛЬЗУЕМ ДРУГОЙ ПРОКСИ !!!
+    const proxyUrl = 'https://cors-proxy.htmldrive.net/api/cors?url=';
     const apiUrl = https://api-v2.soundcloud.com/search/tracks?q=${encodeURIComponent(query)}&client_id=${CLIENT_ID}&limit=20;
     
     fetch(proxyUrl + encodeURIComponent(apiUrl))
@@ -90,7 +90,7 @@ function performSearch() {
             trackInfo.innerText = "Выберите трек";
         })
         .catch(e => { trackInfo.innerText = "Ошибка поиска"; console.error(e); });
-} 
+}
 searchBtn.onclick = performSearch;
 searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
  
