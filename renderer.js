@@ -77,9 +77,12 @@ function performSearch() {
     const query = searchInput.value.trim();
     if (!query) return;
     trackInfo.innerText = "Поиск...";
- 
-    const url = `https://api-v2.soundcloud.com/search/tracks?q=${encodeURIComponent(query)}&client_id=${CLIENT_ID}&limit=20`;
-    fetch(url)
+    
+    // ВАЖНО: Добавляем прокси перед URL запроса
+    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+    const apiUrl = https://api-v2.soundcloud.com/search/tracks?q=${encodeURIComponent(query)}&client_id=${CLIENT_ID}&limit=20;
+    
+    fetch(proxyUrl + encodeURIComponent(apiUrl))
         .then(r => r.json())
         .then(data => {
             currentTracks = data.collection || [];
@@ -87,8 +90,7 @@ function performSearch() {
             trackInfo.innerText = "Выберите трек";
         })
         .catch(e => { trackInfo.innerText = "Ошибка поиска"; console.error(e); });
-}
- 
+} 
 searchBtn.onclick = performSearch;
 searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
  
