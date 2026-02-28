@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>hxstlev1xen cloud</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="content-wrapper">
+            <header class="top-header">
+                <h1>hxstlev1xen cloud</h1>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('search')">Поиск</button>
+                    <button class="tab-btn" onclick="showTab('likes')">Избранное</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Поиск музыки...">
+                    <button id="searchBtn">Найти</button>
+                </div>
+                <a href="https://t.me/hxstlev1xen" target="_blank" class="tg-button">мой телеграмм</a>
+            </header>
+
+            <div class="scroll-area" id="mainScrollArea">
+                <ul id="resultsList"></ul>
+                <ul id="favoritesList" style="display:none;"></ul>
+            </div>
+        </div>
+        
+        <div class="background-image"></div>
+        
+        <canvas id="visualizerCanvas"></canvas>
+        
+        <footer class="player-footer">
+            <div class="current-track-zone">
+                <div id="trackInfo">Загрузка...</div>
+                <button id="likeBtn">♡</button>
+            </div>
+            
+            <div class="controls-zone">
+                <div class="progress-container">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" id="progressBar" value="0" max="100">
+                    <span id="durationTime">0:00</span>
+                </div>
+                <div class="buttons-container">
+                    <button id="prevBtn">⏮</button>
+                    <button id="playPauseBtn">▶️</button>
+                    <button id="nextBtn">⏭</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>

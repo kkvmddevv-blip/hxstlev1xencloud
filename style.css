@@ -1,0 +1,79 @@
+body, html {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    color: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #1a1a1a;
+}
+ 
+.app-container { position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+ 
+/* СЛОЙ 1: КОНТЕНТ */
+.content-wrapper {
+    flex: 1; position: relative; z-index: 5;
+    display: flex; flex-direction: column; overflow: hidden; height: 100%;
+    pointer-events: auto;
+}
+ 
+/* СЛОЙ 2: ФОН */
+.background-image {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('background.jpg');
+    background-size: cover; background-position: center;
+    filter: blur(5px) brightness(0.3); z-index: 1; pointer-events: none;
+}
+ 
+/* СЛОЙ 3: ВИЗУАЛИЗАТОР */
+#visualizerCanvas {
+    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 2; pointer-events: none;
+}
+ 
+/* СЛОЙ 4: ПЛЕЕР */
+.player-footer {
+    position: relative; z-index: 5;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 20px; /* Крупнее для тача */
+    border-top: 2px solid #ff5500; pointer-events: auto;
+}
+ 
+/* --- Элементы (крупнее для мобильных) --- */
+.top-header { padding: 15px; text-align: center; background: rgba(0,0,0,0.4); }
+h1 { margin: 0 0 10px 0; font-size: 18px; text-transform: uppercase; }
+.tabs { margin-bottom: 10px; }
+.tab-btn {
+    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 10px 20px; cursor: pointer; border-radius: 20px;
+    font-size: 14px;
+}
+.tab-btn.active { background-color: #ff5500; border-color: #ff5500; }
+.search-box { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
+input {
+    padding: 12px; border-radius: 10px; border: none;
+    background: rgba(255,255,255,0.1); color: white; width: 70%;
+    font-size: 16px;
+}
+button#searchBtn {
+    padding: 12px 20px; background-color: #ff5500; color: white;
+    border: none; border-radius: 10px; cursor: pointer; font-size: 16px;
+}
+.tg-button {
+    display: inline-block; background-color: rgba(0, 136, 204, 0.5);
+    color: white; text-decoration: none; padding: 8px 15px;
+    border-radius: 15px; font-size: 12px; margin-top: 5px;
+}
+.scroll-area { flex: 1; overflow-y: auto; padding: 15px; }
+ul { list-style: none; padding: 0; margin: 0; }
+.track-item {
+    background: rgba(255, 255, 255, 0.1); margin-bottom: 8px;
+    padding: 15px; border-radius: 10px; cursor: pointer;
+    display: flex; justify-content: space-between; font-size: 15px;
+}
+.track-item:hover { background: rgba(255, 255, 255, 0.2); }
+.current-track-zone { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 14px; }
+#likeBtn { background: none; border: none; color: #ff5500; cursor: pointer; font-size: 22px; }
+.controls-zone { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.progress-container { display: flex; align-items: center; gap: 10px; width: 100%; font-size: 12px; }
+input[type="range"] { flex: 1; accent-color: #ff5500; height: 6px; }
+.buttons-container { display: flex; gap: 25px; align-items: center; }
+.buttons-container button {
+    background: none; border: none; color: white; font-size: 30px; cursor: pointer;
+}
