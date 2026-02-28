@@ -78,7 +78,6 @@ function performSearch() {
     if (!query) return;
     trackInfo.innerText = "Поиск...";
     
-    // !!! НОВЫЙ ПУБЛИЧНЫЙ ПРОКСИ !!!
     const proxyUrl = 'https://corsproxy.io/?';
     const apiUrl = https://api-v2.soundcloud.com/search/tracks?q=${encodeURIComponent(query)}&client_id=${CLIENT_ID}&limit=20;
     
@@ -245,4 +244,5 @@ async function refreshId() {
             } catch (innerE) {}
         }
     } catch (e) { console.error("Ошибка получения CLIENT_ID", e); }
+
 }
