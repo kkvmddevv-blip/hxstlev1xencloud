@@ -71,25 +71,7 @@ async function refreshId() {
     } catch (e) { console.error("Ошибка получения CLIENT_ID", e); }
 }
  
-// Поиск треков через публичный прокси
-function performSearch() {
-    if (!CLIENT_ID) { refreshId(); return; }
-    const query = searchInput.value.trim();
-    if (!query) return;
-    trackInfo.innerText = "Поиск...";
-    
-    const proxyUrl = 'https://corsproxy.io/?';
-    const apiUrl = https://api-v2.soundcloud.com/search/tracks?q=${encodeURIComponent(query)}&client_id=${CLIENT_ID}&limit=20;
-    
-    fetch(proxyUrl + encodeURIComponent(apiUrl))
-        .then(r => r.json())
-        .then(data => {
-            currentTracks = data.collection || [];
-            renderResults();
-            trackInfo.innerText = "Выберите трек";
-        })
-        .catch(e => { trackInfo.innerText = "Ошибка поиска"; console.error(e); });
-}
+
 searchBtn.onclick = performSearch;
 searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
  
@@ -246,3 +228,4 @@ async function refreshId() {
     } catch (e) { console.error("Ошибка получения CLIENT_ID", e); }
 
 }
+
