@@ -71,18 +71,23 @@ async function refreshId() {
     } catch (e) { console.error("Ошибка получения CLIENT_ID", e); }
 }
  
-// Поиск треков через более надежный прокси
+// Поиск треков с трюком для обхода CORS
 function performSearch() {
     if (!CLIENT_ID) { refreshId(); return; }
     const query = searchInput.value.trim();
     if (!query) return;
     trackInfo.innerText = "Поиск...";
     
-    // !!! ИСПОЛЬЗУЕМ ДРУГОЙ ПРОКСИ !!!
-    const proxyUrl = 'https://cors-proxy.htmldrive.net/api/cors?url=';
     const apiUrl = https://api-v2.soundcloud.com/search/tracks?q=${encodeURIComponent(query)}&client_id=${CLIENT_ID}&limit=20;
     
-    fetch(proxyUrl + encodeURIComponent(apiUrl))
+    // !!! ХИТРЫЙ ТРЮК С ЗАГОЛОВКАМИ !!!
+    fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Origin': 'https://soundcloud.com',
+            'Referer': 'https://soundcloud.com/'
+        }
+    })
         .then(r => r.json())
         .then(data => {
             currentTracks = data.collection || [];
