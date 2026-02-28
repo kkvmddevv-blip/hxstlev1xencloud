@@ -215,38 +215,26 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
  
 // Инициализация
-// Поиск ключа SoundCloud через прокси allorigins
+// Поиск ключа SoundCloud через прокси
 async function refreshId() {
     console.log("Запрос CLIENT_ID...");
     
-    // Прокси для получения HTML страницы
+    // Используем прокси для обхода CORS ограничений
+    // ВАЖНО: Если прокси не работает, нужно найти другой бесплатный прокси
     const proxyUrl = 'https://api.allorigins.win/raw?url='; 
     const targetUrl = 'https://soundcloud.com';
 
     try {
         const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
         const html = await response.text();
-        
-        // Ищем ссылки на скрипты
         const scriptUrls = html.match(/https:\/\/a-v2\.sndcdn\.com\/assets\/[a-zA-Z0-9-]+\.js/g);
+        if (!scriptUrls) throw new Error("Скрипты не найдены");
         
-        if (!scriptUrls) {
-            console.error("Скрипты не найдены");
-            return;
-        }
-        
-        // Проверяем скрипты с конца
         for (let url of scriptUrls.reverse()) {
             try {
-                // !!! ВАЖНО: Пробуем найти ID прямым запросом !!!
-                // !!! Если блокирует CORS, раскомментируйте строку ниже !!!
-                // !!! и раскомментируйте ту, что с proxyUrl !!!
-                const scriptRes = await fetch(url); 
-                // const scriptRes = await fetch(proxyUrl + encodeURIComponent(url));
-                
+                const scriptRes = await fetch(proxyUrl + encodeURIComponent(url));
                 const scriptContent = await scriptRes.text();
                 const match = scriptContent.match(/client_id[:=]\s*["']([a-zA-Z0-9]{32})["']/);
-                
                 if (match && match[1]) {
                     CLIENT_ID = match[1];
                     console.log("CLIENT_ID найден:", CLIENT_ID);
